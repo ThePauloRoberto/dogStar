@@ -1,0 +1,20 @@
+{
+  "name": "dogstar",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ThePauloRoberto/dogStar.git"
+  },
+  "keywords": [],
+  "author": "ThePauloRoberto",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ThePauloRoberto/dogStar/issues"
+  },
+  "homepage": "https://github.com/ThePauloRoberto/dogStar#readme",
+  "description": "🚀 A RESTful API built with NestJS for exploring Star Wars data. Focuses on clean code, scalable architecture, and best practices like DDD, SOLID, and testing. Ideal for learning backend development with a galactic twist!"
+}
