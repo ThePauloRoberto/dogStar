@@ -25,7 +25,7 @@ import { StarSystemEntity } from 'src/entities/star-system.entity';
       database: process.env.DB_DATABASE,
       password: process.env.DB_PASSWORD,
       autoLoadEntities: true,
-      synchronize: true,
+      synchronize: false,
     }),
   ],
   controllers: [AppController],
