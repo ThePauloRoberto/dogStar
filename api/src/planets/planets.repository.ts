@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PlanetEntity } from 'src/entities/planet.entity';
 import { Repository } from 'typeorm';
+import { PlanetDTO } from './dto/planet.dto';
 
 @Injectable()
 export class PlanetsRepository {
@@ -20,5 +21,13 @@ export class PlanetsRepository {
     const planet = await this.planetRepository.findBy({ id });
 
     return planet;
+  }
+
+  async create(planetDto: PlanetDTO) {
+    const planetCreted = this.planetRepository.create(planetDto);
+
+    const planetSaved = await this.planetRepository.save(planetCreted);
+
+    return planetSaved;
   }
 }

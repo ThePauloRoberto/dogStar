@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PlanetsRepository } from './planets.repository';
+import { PlanetDTO } from './dto/planet.dto';
 
 @Injectable()
 export class PlanetsService {
@@ -11,5 +12,9 @@ export class PlanetsService {
 
   async findById(id: number) {
     return await this.planetsRepository.findById(id);
+  }
+
+  async create(planet: PlanetDTO) {
+    return await this.planetsRepository.create(planet);
   }
 }

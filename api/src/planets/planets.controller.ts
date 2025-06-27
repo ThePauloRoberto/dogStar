@@ -1,5 +1,7 @@
-import { Controller, Get, Param, ParseIntPipe } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseIntPipe, Post } from '@nestjs/common';
 import { PlanetsService } from './planets.service';
+import { PlanetDTO } from './dto/planet.dto';
+import { PlanetEntity } from 'src/entities/planet.entity';
 
 @Controller('planets')
 export class PlanetsController {
@@ -50,6 +52,31 @@ export class PlanetsController {
         message: 'Erro interno ao encontrar planeta',
         error: error,
         data: undefined,
+      };
+    }
+  }
+
+  @Post()
+  async createPlanet(@Body() planetDto: PlanetDTO) {
+    try {
+      const planet = await this.planetsService.create(planetDto);
+
+      if (!planet) {
+        return {
+          message: 'Falha ao criar planeta!',
+          data: undefined,
+        };
+      }
+
+      return {
+        message: 'Planeta criado com sucesso!',
+        data: planet,
+      };
+    } catch (error: unknown) {
+      return {
+        message: 'erro interno ao criar planeta!',
+        data: undefined,
+        error: error,
       };
     }
   }
