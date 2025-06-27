@@ -8,4 +8,8 @@ export class PlanetsService {
   async findAll() {
     return await this.planetsRepository.findAll();
   }
+
+  async findById(id: number) {
+    return await this.planetsRepository.findById(id);
+  }
 }

@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param, ParseIntPipe } from '@nestjs/common';
 import { PlanetsService } from './planets.service';
 
 @Controller('planets')
@@ -25,6 +25,31 @@ export class PlanetsController {
       return {
         message: 'Erro interno ao encontrar todos os planetas!',
         data: error,
+      };
+    }
+  }
+
+  @Get(':id')
+  async getPlanetById(@Param('id', ParseIntPipe) planetId: number) {
+    try {
+      const planet = await this.planetsService.findById(planetId);
+
+      if (planet.length < 1) {
+        return {
+          message: 'Planeta não encontrado!',
+          data: undefined,
+        };
+      }
+
+      return {
+        message: 'Planeta encontrado!',
+        data: planet,
+      };
+    } catch (error: unknown) {
+      return {
+        message: 'Erro interno ao encontrar planeta',
+        error: error,
+        data: undefined,
       };
     }
   }

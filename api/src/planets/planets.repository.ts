@@ -15,4 +15,10 @@ export class PlanetsRepository {
 
     return planets;
   }
+
+  async findById(id: number) {
+    const planet = await this.planetRepository.findBy({ id });
+
+    return planet;
+  }
 }
