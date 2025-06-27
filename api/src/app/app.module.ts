@@ -7,6 +7,7 @@ import { CharacterEntity } from 'src/entities/character.entity';
 import { PlanetEntity } from 'src/entities/planet.entity';
 import { SpaceshipEntity } from 'src/entities/spaceship.entity';
 import { StarSystemEntity } from 'src/entities/star-system.entity';
+import { PlanetsModule } from 'src/planets/planets.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { StarSystemEntity } from 'src/entities/star-system.entity';
       autoLoadEntities: true,
       synchronize: false,
     }),
+    PlanetsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
