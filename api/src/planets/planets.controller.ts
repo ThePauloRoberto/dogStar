@@ -1,7 +1,14 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { PlanetsService } from './planets.service';
 import { PlanetDTO } from './dto/planet.dto';
-import { PlanetEntity } from 'src/entities/planet.entity';
 
 @Controller('planets')
 export class PlanetsController {
@@ -36,7 +43,7 @@ export class PlanetsController {
     try {
       const planet = await this.planetsService.findById(planetId);
 
-      if (planet.length < 1) {
+      if (!planet) {
         return {
           message: 'Planeta não encontrado!',
           data: undefined,
@@ -77,6 +84,37 @@ export class PlanetsController {
         message: 'erro interno ao criar planeta!',
         data: undefined,
         error: error,
+      };
+    }
+  }
+
+  @Put(':id')
+  async updatePlanet(
+    @Param('id', ParseIntPipe) planetId: number,
+    @Body() planetDto: PlanetDTO,
+  ) {
+    try {
+      const planet = await this.planetsService.findById(planetId);
+
+      if (!planet) {
+        return {
+          message: 'Erro ao encontrar planeta com este ID',
+          data: undefined,
+        };
+      }
+      const planetUpdated = await this.planetsService.update(
+        planetId,
+        planetDto,
+      );
+      return {
+        message: 'Planeta atualizado com sucesso!',
+        data: planetUpdated,
+      };
+    } catch (erro: unknown) {
+      return {
+        message: 'Erro interno ao atualizar planeta!',
+        data: undefined,
+        erro: erro,
       };
     }
   }

@@ -20,14 +20,32 @@ export class PlanetsRepository {
   async findById(id: number) {
     const planet = await this.planetRepository.findBy({ id });
 
-    return planet;
+    return planet[0];
   }
 
   async create(planetDto: PlanetDTO) {
-    const planetCreted = this.planetRepository.create(planetDto);
+    const planetCreated = this.planetRepository.create(planetDto);
 
-    const planetSaved = await this.planetRepository.save(planetCreted);
+    const planetSaved = await this.planetRepository.save(planetCreated);
 
     return planetSaved;
+  }
+
+  async updatePlanet(planetId: number, planetDto: PlanetDTO) {
+    const planetUpdated = await this.planetRepository.preload({
+      id: planetId,
+      ...planetDto,
+    });
+
+    if (!planetUpdated) {
+      return {
+        message: 'Planeta não encontrado!',
+        data: undefined,
+      };
+    }
+
+    await this.planetRepository.save(planetUpdated);
+
+    return planetUpdated;
   }
 }
