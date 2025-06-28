@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   ParseIntPipe,
@@ -117,5 +118,24 @@ export class PlanetsController {
         erro: erro,
       };
     }
+  }
+
+  @Delete(':id')
+  async deletePlanet(@Param('id', ParseIntPipe) id: number) {
+    const planetTarget = await this.planetsService.findById(id);
+
+    if (!planetTarget) {
+      return {
+        message: 'Falha ao criar planeta!',
+        data: undefined,
+      };
+    }
+
+    const planetDeleted = await this.planetsService.delete(planetTarget);
+
+    return {
+      message: 'Planeta deletado com sucesso!',
+      data: planetDeleted,
+    };
   }
 }

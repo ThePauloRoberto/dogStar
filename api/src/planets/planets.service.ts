@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PlanetsRepository } from './planets.repository';
 import { PlanetDTO } from './dto/planet.dto';
+import { PlanetEntity } from 'src/entities/planet.entity';
 @Injectable()
 export class PlanetsService {
   constructor(private readonly planetsRepository: PlanetsRepository) {}
@@ -19,5 +20,9 @@ export class PlanetsService {
 
   async update(planetId: number, planetDto: PlanetDTO) {
     return await this.planetsRepository.updatePlanet(planetId, planetDto);
+  }
+
+  async delete(planetTarget: PlanetEntity) {
+    return await this.planetsRepository.deletePlanet(planetTarget);
   }
 }

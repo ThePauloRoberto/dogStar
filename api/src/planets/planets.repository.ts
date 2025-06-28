@@ -48,4 +48,8 @@ export class PlanetsRepository {
 
     return planetUpdated;
   }
+
+  async deletePlanet(planetTarget: PlanetEntity) {
+    return await this.planetRepository.remove(planetTarget);
+  }
 }
